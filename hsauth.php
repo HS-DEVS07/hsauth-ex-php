@@ -9,6 +9,7 @@ namespace HSAUTH;
 class api {
     public $name;
     public $ownerid;
+    public $secret;
     public $version;
     public $apiUrl;
     public $sessionid;
@@ -17,9 +18,13 @@ class api {
     public $user_data = [];
     public $app_data = [];
 
-    public function __construct($name, $ownerid, $version = "1.0", $apiUrl = "https://hsauth.mujahid.xyz/api/1.3/") {
+    public function __construct($name, $ownerid, $secret, $version = "1.0", $apiUrl = "https://hsauth.mujahid.xyz/api/1.3/") {
+        if (empty($name) || empty($ownerid) || empty($secret)) {
+            throw new \InvalidArgumentException("Application name, ownerid, and secret are all required.");
+        }
         $this->name = $name;
         $this->ownerid = $ownerid;
+        $this->secret = $secret;
         $this->version = $version;
         $this->apiUrl = rtrim($apiUrl, '/') . '/';
     }
@@ -37,8 +42,12 @@ class api {
     }
 
     private function req($data) {
+        if (empty($this->secret)) {
+            return ['success' => false, 'message' => 'Application secret is required'];
+        }
         $data['name'] = $this->name;
         $data['ownerid'] = $this->ownerid;
+        $data['secret'] = $this->secret;
 
         $postfields = http_build_query($data);
 
