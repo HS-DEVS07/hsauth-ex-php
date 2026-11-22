@@ -18,7 +18,7 @@ class api {
     public $user_data = [];
     public $app_data = [];
 
-    public function __construct($name, $ownerid, $secret, $version = "1.0", $apiUrl = "https://hsauth.mujahid.xyz/api/1.3/") {
+    public function __construct($name, $ownerid, $secret, $version = "1.0", $apiUrl = "https://auth.hsdevs.pro/api/1.3/") {
         if (empty($name) || empty($ownerid) || empty($secret)) {
             throw new \InvalidArgumentException("Application name, ownerid, and secret are all required.");
         }
