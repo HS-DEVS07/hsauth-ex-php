@@ -6,7 +6,7 @@ $auth = new \HSAUTH\api(
     "your_app_identifier_here",
     "your_app_secret_here",
     "1.0",
-    "https://hsauth.mujahid.xyz/api/1.3/"
+    "https://auth.hsdevs.pro/api/1.3/"
 );
 
 $init = $auth->init();
